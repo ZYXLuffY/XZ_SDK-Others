@@ -7,12 +7,12 @@
 //
 
 #import "QTZ_CarTestMethod.h"
-#import "QTZ_DownLoadView.h"
+//#import "QTZ_DownLoadView.h"
 #import "XZUtility.h"
 #import "XZNetWorking.h"
 #define Duration 2
 
-@interface QTZ_CarTestMethod ()<GOInspectionDiagDelegate,GODiagnoseConfigDelegate>
+@interface QTZ_CarTestMethod ()
 
 @property (nonatomic, copy) startExameAction startAction;
 @property (nonatomic, copy) endExameAction endAction;
@@ -39,9 +39,9 @@ static dispatch_once_t onceToken;
 
 -(void)cancelExam
 {
-    [WIFIPasswordSetting closeWIFISocket];
-    [[GOInspectionDiag shareInstance]inspectionCancel];
-    [GOInspectionDiag shareInstance].delegate = nil;
+//    [WIFIPasswordSetting closeWIFISocket];
+//    [[GOInspectionDiag shareInstance]inspectionCancel];
+//    [GOInspectionDiag shareInstance].delegate = nil;
     if (self.cancelExameBlock) {
         self.cancelExameBlock();
     }
@@ -84,14 +84,14 @@ static dispatch_once_t onceToken;
             if (self.stepOneBlock) {
                 self.stepOneBlock(NO);
             }
-            __weak typeof(self)weakSelf =self;
-            QTZ_DownLoadView *view = [QTZ_DownLoadView ShareDownLoadViewType:carTestTypeAllExame CarId:@"" DeviceId:@"" isUpdate:NO];
-            view.carProfileUnZipFilesFail = ^{
-                
-            };
-            view.carProfileUnZipFilesSuccess = ^{
-                [weakSelf examPreStepOne];
-            };
+//            __weak typeof(self)weakSelf =self;
+//            QTZ_DownLoadView *view = [QTZ_DownLoadView ShareDownLoadViewType:carTestTypeAllExame CarId:@"" DeviceId:@"" isUpdate:NO];
+//            view.carProfileUnZipFilesFail = ^{
+//                
+//            };
+//            view.carProfileUnZipFilesSuccess = ^{
+//                [weakSelf examPreStepOne];
+//            };
             if (self.needToDownloadCarProfile) {
                 self.needToDownloadCarProfile();
             }
@@ -110,14 +110,14 @@ static dispatch_once_t onceToken;
     else
     {
         
-        __weak typeof(self)weakSelf =self;
-        QTZ_DownLoadView *view = [QTZ_DownLoadView ShareDownLoadViewType:carTestTypeQuickExame CarId:@"" DeviceId:@"" isUpdate:NO];
-        view.carProfileUnZipFilesFail = ^{
-            
-        };
-        view.carProfileUnZipFilesSuccess = ^{
-            [weakSelf examPreStepOne];
-        };
+//        __weak typeof(self)weakSelf =self;
+//        QTZ_DownLoadView *view = [QTZ_DownLoadView ShareDownLoadViewType:carTestTypeQuickExame CarId:@"" DeviceId:@"" isUpdate:NO];
+//        view.carProfileUnZipFilesFail = ^{
+//            
+//        };
+//        view.carProfileUnZipFilesSuccess = ^{
+//            [weakSelf examPreStepOne];
+//        };
         if (self.stepOneBlock) {
             self.stepOneBlock(NO);
         }
@@ -129,40 +129,40 @@ static dispatch_once_t onceToken;
 
 - (void)examPreStepTwo
 {
-    __weak typeof(self)weakSelf =self;
-    [WIFIPasswordSetting openWIFISocketwithMode:GOSocketModeWIFIManager success:^{
-        NSLog(@"成功连接WIFI Socket！！");
-        [WIFIPasswordSetting CheckSerialNo:@"" success:^{
-            if (self.stepTowBlock) {
-                self.stepTowBlock(YES);
-            }
-            if (self.isTestAction) {
-                delay(1, ^{[weakSelf examStepThree]; });
-                return ;
-            }
-            [self nowStartExam];
-        } failure:^(NSError *error) {
-            [WIFIPasswordSetting closeWIFISocket];
-            if (self.stepTowBlock) {
-                self.stepTowBlock(NO);
-            }
-            [XZUtility showAlertViewTitle:@"温馨提示" Msg:@"请打开手机网络连接车载智能终端WiFi" completion:^(int index) {
-                if(index==1){
-                    [[UIApplication sharedApplication] openURL:iOS10 ? [NSURL URLWithString:UIApplicationOpenSettingsURLString] : [NSURL URLWithString:@"prefs:root=WIFI"]];
-                }
-            } otherBtns:@[@"稍后检测",@"设置"]];
-        }];
-    } fail:^{
-        [WIFIPasswordSetting closeWIFISocket];
-        if (self.stepTowBlock) {
-            self.stepTowBlock(NO);
-        }
-        [XZUtility showAlertViewTitle:@"温馨提示" Msg:@"请用手机连接擎天助智能终端WiFi" completion:^(int index) {
-            if(index==1){
-                [[UIApplication sharedApplication] openURL:iOS10 ? [NSURL URLWithString:UIApplicationOpenSettingsURLString] : [NSURL URLWithString:@"prefs:root=WIFI"]];
-            }
-        } otherBtns:@[@"稍后检测",@"设置"]];
-    }];
+//    __weak typeof(self)weakSelf =self;
+//    [WIFIPasswordSetting openWIFISocketwithMode:GOSocketModeWIFIManager success:^{
+//        NSLog(@"成功连接WIFI Socket！！");
+//        [WIFIPasswordSetting CheckSerialNo:@"" success:^{
+//            if (self.stepTowBlock) {
+//                self.stepTowBlock(YES);
+//            }
+//            if (self.isTestAction) {
+//                delay(1, ^{[weakSelf examStepThree]; });
+//                return ;
+//            }
+//            [self nowStartExam];
+//        } failure:^(NSError *error) {
+//            [WIFIPasswordSetting closeWIFISocket];
+//            if (self.stepTowBlock) {
+//                self.stepTowBlock(NO);
+//            }
+//            [XZUtility showAlertViewTitle:@"温馨提示" Msg:@"请打开手机网络连接车载智能终端WiFi" completion:^(int index) {
+//                if(index==1){
+//                    [[UIApplication sharedApplication] openURL:iOS10 ? [NSURL URLWithString:UIApplicationOpenSettingsURLString] : [NSURL URLWithString:@"prefs:root=WIFI"]];
+//                }
+//            } otherBtns:@[@"稍后检测",@"设置"]];
+//        }];
+//    } fail:^{
+//        [WIFIPasswordSetting closeWIFISocket];
+//        if (self.stepTowBlock) {
+//            self.stepTowBlock(NO);
+//        }
+//        [XZUtility showAlertViewTitle:@"温馨提示" Msg:@"请用手机连接擎天助智能终端WiFi" completion:^(int index) {
+//            if(index==1){
+//                [[UIApplication sharedApplication] openURL:iOS10 ? [NSURL URLWithString:UIApplicationOpenSettingsURLString] : [NSURL URLWithString:@"prefs:root=WIFI"]];
+//            }
+//        } otherBtns:@[@"稍后检测",@"设置"]];
+//    }];
 }
 
 //检查车辆是否点火,并处于停驶状态才能进行体检
@@ -219,24 +219,24 @@ static dispatch_once_t onceToken;
     if (self.startAction) {
         self.startAction();
     }
-    [GOInspectionDiag shareInstance].delegate = self;
+//    [GOInspectionDiag shareInstance].delegate = self;
     if (self.isTestAction) {
         if (self.carTsetType ==carTestTypeAllExame) {
-            [[GOInspectionDiag shareInstance] inspectionTypeForAllStart:@"" carBrandPath:[QTZ_CarTestMethod getCarBrandPth] EOBDPth:[QTZ_CarTestMethod getEOBDPth]];
+//            [[GOInspectionDiag shareInstance] inspectionTypeForAllStart:@"" carBrandPath:[QTZ_CarTestMethod getCarBrandPth] EOBDPth:[QTZ_CarTestMethod getEOBDPth]];
             
         }else{
-            [[GOInspectionDiag shareInstance] inspectionTypeForOBDStart:@"" EOBDPth:[QTZ_CarTestMethod getEOBDPth]];
+//            [[GOInspectionDiag shareInstance] inspectionTypeForOBDStart:@"" EOBDPth:[QTZ_CarTestMethod getEOBDPth]];
         }
         self.isTestAction = NO;
         return;
     }
 
     if (self.carTsetType == carTestTypeAllExame) {
-        [[GOInspectionDiag shareInstance] oneKeyClearReportHandle:@""  carBrandPath:@"" EOBDPth:[QTZ_CarTestMethod getEOBDPth]];
+//        [[GOInspectionDiag shareInstance] oneKeyClearReportHandle:@""  carBrandPath:@"" EOBDPth:[QTZ_CarTestMethod getEOBDPth]];
     }
     else{
     
-        [[GOInspectionDiag shareInstance] oneKeyClearReportHandle:@""  carBrandPath:@"" EOBDPth:[QTZ_CarTestMethod getEOBDPth]];
+//        [[GOInspectionDiag shareInstance] oneKeyClearReportHandle:@""  carBrandPath:@"" EOBDPth:[QTZ_CarTestMethod getEOBDPth]];
     }
 }
 

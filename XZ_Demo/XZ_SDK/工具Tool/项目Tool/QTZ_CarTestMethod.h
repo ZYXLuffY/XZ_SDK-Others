@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "Config.h"
-#import "GOInspectionDiag.h"
-#import "GODiagnoseConfig.h"
-#import "WIFIPasswordSetting.h"
+//#import "GOInspectionDiag.h"
+//#import "GODiagnoseConfig.h"
+//#import "WIFIPasswordSetting.h"
 
 
 typedef NS_ENUM(NSInteger,CarTestType){

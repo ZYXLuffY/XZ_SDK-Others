@@ -30,6 +30,7 @@
 		4D28C06E1E138E4400D5FFC2 /* UIScrollView+MLInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D28C0571E138E4400D5FFC2 /* UIScrollView+MLInputDodger.m */; };
 		4D28C06F1E138E4400D5FFC2 /* UIView+MLInputDodger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D28C0591E138E4400D5FFC2 /* UIView+MLInputDodger.m */; };
 		4D28C0721E13901000D5FFC2 /* XZUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D28C0711E13901000D5FFC2 /* XZUserInfo.m */; };
+		4D28C0751E13A48600D5FFC2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D28C0741E13A48600D5FFC2 /* libsqlite3.tbd */; };
 		4DCDCF2C1E0D1C6D00CA002F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCDCF2B1E0D1C6D00CA002F /* main.m */; };
 		4DCDCF2F1E0D1C6D00CA002F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCDCF2E1E0D1C6D00CA002F /* AppDelegate.m */; };
 		4DCDCF321E0D1C6D00CA002F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCDCF311E0D1C6D00CA002F /* ViewController.m */; };
@@ -241,6 +242,7 @@
 		4D28C0591E138E4400D5FFC2 /* UIView+MLInputDodger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MLInputDodger.m"; sourceTree = "<group>"; };
 		4D28C0701E13901000D5FFC2 /* XZUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XZUserInfo.h; sourceTree = "<group>"; };
 		4D28C0711E13901000D5FFC2 /* XZUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XZUserInfo.m; sourceTree = "<group>"; };
+		4D28C0741E13A48600D5FFC2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		4DCDCF271E0D1C6D00CA002F /* XZ_Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XZ_Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DCDCF2B1E0D1C6D00CA002F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DCDCF2D1E0D1C6D00CA002F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -539,10 +541,6 @@
 		4DCDD1601E0D1E7C00CA002F /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
 		4DCDD20D1E0D258500CA002F /* BoJueNetworkAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoJueNetworkAPI.h; sourceTree = "<group>"; };
 		4DCDD2141E0D27A400CA002F /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
-		4DCDD21E1E0D27A400CA002F /* GODiagnoseCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GODiagnoseCommon.h; sourceTree = "<group>"; };
-		4DCDD21F1E0D27A400CA002F /* GODiagnoseConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GODiagnoseConfig.h; sourceTree = "<group>"; };
-		4DCDD2201E0D27A400CA002F /* GOInspectionDiag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GOInspectionDiag.h; sourceTree = "<group>"; };
-		4DCDD2211E0D27A400CA002F /* WIFIPasswordSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WIFIPasswordSetting.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -550,6 +548,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D28C0751E13A48600D5FFC2 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +676,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		4D28C0731E13A48600D5FFC2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D28C0741E13A48600D5FFC2 /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4DCDCF1E1E0D1C6D00CA002F = {
 			isa = PBXGroup;
 			children = (
@@ -684,6 +691,7 @@
 				4DCDCF431E0D1C6D00CA002F /* XZ_DemoTests */,
 				4DCDCF4E1E0D1C6D00CA002F /* XZ_DemoUITests */,
 				4DCDCF281E0D1C6D00CA002F /* Products */,
+				4D28C0731E13A48600D5FFC2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1237,20 +1245,8 @@
 			isa = PBXGroup;
 			children = (
 				4DCDD2141E0D27A400CA002F /* Config.h */,
-				4DCDD21D1E0D27A400CA002F /* GOVehicleDiagnoseHeader */,
 			);
 			path = "元征GOVLib";
-			sourceTree = "<group>";
-		};
-		4DCDD21D1E0D27A400CA002F /* GOVehicleDiagnoseHeader */ = {
-			isa = PBXGroup;
-			children = (
-				4DCDD21E1E0D27A400CA002F /* GODiagnoseCommon.h */,
-				4DCDD21F1E0D27A400CA002F /* GODiagnoseConfig.h */,
-				4DCDD2201E0D27A400CA002F /* GOInspectionDiag.h */,
-				4DCDD2211E0D27A400CA002F /* WIFIPasswordSetting.h */,
-			);
-			path = GOVehicleDiagnoseHeader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
