@@ -1,0 +1,167 @@
+
+#import "QTZStatistics.h"
+//#import "UMMobClick/MobClick.h"
+#import <objc/runtime.h>
+
+#ifdef DEBUG
+#define NSLog(fmt, ...) NSLog((@"" fmt), ##__VA_ARGS__)
+#else
+#define NSLog(...)
+#endif
+
+#pragma mark - 🔵 ====== ====== 友盟统计 ====== ======  🔵
+
+@interface QTZStatistics ()
+{
+@public
+    NSArray *QTZStructure_QiandaoSteps;/**< 签到领券活动 包含步骤 */
+    NSArray *QTZStructure_RZXSZAct;/**< 认证行驶证活动 包含步骤 */
+    
+    NSArray *QTZInvalidLogPageView;/**< 不需要统计的 页面访问时长 */
+}
+@property (nonatomic,strong) NSArray *Arr_H5;/**< 进入包含统计的H5页面 友盟统计事件ID*/
+@property (nonatomic,strong) NSArray *Arr_Native;/**< 进入包含统计的原生页面 友盟统计事件ID*/
+
+@end
+
+@implementation  QTZStatistics
+
+static QTZStatistics *instance;
+
++ (instancetype)share{
+    static QTZStatistics *instance;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        instance = [[self alloc]init];
+        
+        //H5页面  友盟统计事件ID
+        instance.Arr_H5 =     @[@"insIntro",@"xiche",@"meirong",@"baoyang",@"weixiu",@"zhuanghuang",@"jiuyuan",@"appfaq"];
+        
+        
+        //原生页面 友盟统计事件ID
+        instance.Arr_Native = @[@"QTZgiftCardVC",@"BaoYang_TimeLineVC",@"BaoXianJiuYuanTVC",@"ContactUsVC",@"CarReportTVC",@"MyCarLocationVC",@"CleanFuckingCodeTVC",@"DriveRecordFootMarkVC",@"CarTestVC",@"Jiashi_UploadActivityVC",@"OBDVoiceMsgNotifyVC",@"FlowInChargeVC",@"QTZ_BuyOBDVC",@"CurrentCarConditionVC"];
+        
+        //结构化事件     index 0  是友盟的统计ID
+        instance -> QTZStructure_QiandaoSteps = @[@"签到领券活动",@"进入签到活动页",@"点击签到",@"签到_领券成功",@"签到_点击分享",@"签到_分享成功"];
+        instance -> QTZStructure_RZXSZAct = @[@"认证行驶证活动",@"进入认证行驶证活动页",@"行驶证_点击我要参与",@"行驶证上传成功"];
+        
+        //不需要统计访问时长的页面 有些是特殊弹出的什么的
+        instance -> QTZInvalidLogPageView = @[@"JEBaseNavtion",@"JETabbar_Controller",@"UIViewController",@"UIAlertController",@"UICompatibilityInputViewController",@"_UIRemoteInputViewController"];
+    });
+    
+    return instance;
+}
+
+#pragma mark -  部分按钮点击事件
+
+- (void)nativeBtnClick:(NSString*)Statistics{
+//    [MobClick event:Statistics];
+    NSLog(@"H5💚💚💚💚按钮点击打点统计📝📝📝 或 分享%@",Statistics);
+}
+
+#pragma mark -  要进入H5页面
+
+- (void)H5Statistics:(NSString*)urlStr{
+    NSLog(@"💛💛💛💛💛💛💛💛💛%@",urlStr);
+    for (NSString *Statistics in _Arr_H5) {
+        if ([urlStr containsString:Statistics]) {
+//            [MobClick event:Statistics];
+            NSLog(@"H5💚💚💚💚打点统计📝📝📝%@",Statistics);
+            break;
+        }
+    }
+    
+    //打开的网页
+    if ([urlStr rangeOfString:@"drivingLicense"].location != NSNotFound){
+        [[QTZStatistics share] structureStatistics:QTZStructureStatisticsTypeDriveActivity step:2];//友盟统计 2 行驶证_点击我要参与
+    }
+    else if ([urlStr rangeOfString:@"authDriving"].location != NSNotFound){
+        [[QTZStatistics share] structureStatistics:QTZStructureStatisticsTypeDriveActivity step:1];//友盟统计 1 进入认证行驶证活动页
+    }
+    
+    //  签到领券活动 step 1 - 5   1。进入签到活动页 	2。点击签到	  3。签到_领券成功	  4。签到_点击分享     5。签到_分享成功
+    if ([urlStr rangeOfString:@"signInfo"].location != NSNotFound){
+        [[QTZStatistics share] structureStatistics:QTZStructureStatisticsTypeQiandao step:1];//友盟统计 1 进入签到活动页
+    }
+    
+    
+    
+}
+
+#pragma mark - 结构化事件统计
+/** 友盟 结构化事件统计 每进行一步 调一次 */
+- (void)structureStatistics:(QTZStructureStatisticsType)type step:(NSUInteger)step{
+    switch (type) {
+        case QTZStructureStatisticsTypeQiandao:{/**< 签到领券活动 */
+            if (step >= QTZStructure_QiandaoSteps.count) { break;}
+//            [MobClick event:[QTZStructure_QiandaoSteps subarrayWithRange:NSMakeRange(0, step + 1)] value:1 label:nil];
+        } break;
+        case QTZStructureStatisticsTypeDriveActivity:{/**< 认证行驶证活动 */
+            if (step >= QTZStructure_RZXSZAct.count) { break;}
+//            [MobClick event:[QTZStructure_RZXSZAct subarrayWithRange:NSMakeRange(0, step + 1)] value:1 label:nil];
+        } break;
+        default:
+            break;
+    }
+}
+
+
+@end
+
+#pragma mark - 🔵 ====== ====== 统计原生页面 ====== ======  🔵
+
+//@implementation UIViewController (QTZ)
+//
+//+ (void)load{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        [self swizzleInstanceMethod:@selector(viewDidLoad) with:@selector(MobClick_viewDidLoad)];
+//        [self swizzleInstanceMethod:@selector(viewDidAppear:) with:@selector(MobClick_viewDidAppear:)];
+//        [self swizzleInstanceMethod:@selector(viewDidDisappear:) with:@selector(MobClick_viewDidDisappear:)];
+//    });
+//}
+//
+//+ (BOOL)swizzleInstanceMethod:(SEL)originalSel with:(SEL)newSel {
+//    Method originalMethod = class_getInstanceMethod(self, originalSel);
+//    Method newMethod = class_getInstanceMethod(self, newSel);
+//    if (!originalMethod || !newMethod) return NO;
+//    
+//    class_addMethod(self,originalSel,class_getMethodImplementation(self, originalSel),method_getTypeEncoding(originalMethod));
+//    class_addMethod(self,newSel,class_getMethodImplementation(self, newSel), method_getTypeEncoding(newMethod));
+//    
+//    method_exchangeImplementations(class_getInstanceMethod(self, originalSel),class_getInstanceMethod(self, newSel));
+//    return YES;
+//}
+//
+///** 用于统计页面开始时间 */
+//-(void)MobClick_viewDidAppear:(BOOL)animated{
+//    [self MobClick_viewDidAppear:YES];
+//    [self logPageViewInBegin:YES vcName:NSStringFromClass([self class])];//    NSLog(@"MobClick_viewDidAppear✡️✡️✡️✡️✡️✡️✡️✡️✡️✡️✡️✡️✡️%@",NSStringFromClass([self class]));
+//}
+//
+///** ==结束时间== */
+//-(void)MobClick_viewDidDisappear:(BOOL)animated{
+//    [self MobClick_viewDidDisappear:YES];
+//    [self logPageViewInBegin:NO vcName:NSStringFromClass([self class])];//    NSLog(@"MobClick_viewDidDisappear🅾️🅾️🅾️🅾️🅾️🅾️🅾️🅾️🅾️🅾️🅾️🅾️🅾️🅾️%@",NSStringFromClass([self class]));
+//}
+//
+//- (void)logPageViewInBegin:(BOOL)isBegin vcName:(NSString*)vcName{
+//    if ([[QTZStatistics share] -> QTZInvalidLogPageView containsObject:vcName]) {
+//        return;
+//    }
+//    isBegin ? [MobClick beginLogPageView:vcName] : [MobClick endLogPageView:vcName];
+//}
+//
+//-(void)MobClick_viewDidLoad{
+//    [self MobClick_viewDidLoad];
+//    NSString *Statistics   = NSStringFromClass([self class]);
+//    
+//    if ([[QTZStatistics share].Arr_Native containsObject:Statistics]) {//包含要统计的   》》》》》》进入的页面《《《《《《
+//        [MobClick event:Statistics];
+//        NSLog(@"原生💚💚💚💚打点统计📝📝📝%@",Statistics);
+//    }
+//}
+//
+//
+//@end

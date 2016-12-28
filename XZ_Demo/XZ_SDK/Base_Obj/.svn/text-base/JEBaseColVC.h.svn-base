@@ -1,0 +1,16 @@
+
+#import <UIKit/UIKit.h>
+#import "JEUtility.h"
+#import "JENetWorking.h"
+#import "UIViewController+JE.h"
+
+@interface JEBaseColVC : UICollectionViewController
+
+
+
+@end
+
+
+@interface JECollectionView : UICollectionView
+
+@end

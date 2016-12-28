@@ -1,0 +1,32 @@
+//
+//  GONetworkRequest.h
+//  GODiagnoseDemo
+//
+//  Created by Launch Tech Co.,Ltd on 9/30/15.
+//  Copyright (c) 2015 allen. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+
+typedef void (^RequestSuccess)(id responseObject);
+typedef void (^RequestFailure)(id responseObject);
+
+@interface GONetworkRequest : NSObject
+
+//// 注册产品网络请求
+//+ (void)networkRegisterProduct:(id)params requestSuccess:(RequestSuccess)requestSuccess requestFailure:(RequestFailure)requestFailure;
+//// 获取车辆品牌
+//+ (void)networkGetCarBrand:(id)params requestSuccess:(RequestSuccess)requestSuccess requestFailure:(RequestFailure)requestFailure;
+//// 获取车辆品牌
+//+ (void)networkGetCarType:(id)params requestSuccess:(RequestSuccess)requestSuccess requestFailure:(RequestFailure)requestFailure;
+//// 激活golo头请求
+//+ (void)networkActivateGolo:(id)params requestSuccess:(RequestSuccess)requestSuccess requestFailure:(RequestFailure)requestFailure;
+//// 根据golo智能终端获取下载配置文件
+//+ (void)networkGetCarConfigParam:(id)params requestSuccess:(RequestSuccess)requestSuccess requestFailure:(RequestFailure)requestFailure;
+//// 获取sys.ini文件参数
+//+ (void)networkGetCarSysiniParam:(id)params requestSuccess:(RequestSuccess)requestSuccess requestFailure:(RequestFailure)requestFailure;
+//// 获取激活车辆信息请求
+//+ (void)networkGetActivatedCarInfo:(id)params requestSuccess:(RequestSuccess)requestSuccess requestFailure:(RequestFailure)requestFailure;
+
+@end

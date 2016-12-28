@@ -1,0 +1,17 @@
+//
+//  GOCarBrandSonModel.h
+//  GODiagnoseDemo
+//
+//  Created by Launch Tech Co.,Ltd on 10/9/15.
+//  Copyright (c) 2015 allen. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+//元征的SDK Model
+@interface GOCarBrandSonModel : NSObject
+@property (nonatomic ,strong) NSString *carSeriesId;
+@property (nonatomic ,strong) NSString *carSeriesName;
+@property (nonatomic ,strong) NSString *parentId;
+@property (nonatomic ,strong) NSMutableArray *subList;
+@property (nonatomic ,strong) NSString *url;
+@end

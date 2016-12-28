@@ -1,0 +1,63 @@
+//
+//  GOMapCarMonitorControlData.h
+//  GODiagnoseDemo
+//
+//  Created by Launch Tech Co.,Ltd on 4/8/15.
+//  Copyright (c) 2015 allen. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+//元征SDK自己的解析类
+@interface GOMapCarMonitorControlData : NSObject
+
+@property (nonatomic,strong) NSString * continueMileage; //1 里程
+@property (nonatomic,strong) NSString * addUpMileage;    //2 累计里程
+@property (nonatomic,strong) NSString * remainOil;       //3 发动机剩余燃油量
+@property (nonatomic,strong) NSString * accelerate;      //4 油门踏板相对位置
+@property (nonatomic,strong) NSString * inductionManifold; //5 进气歧管绝对压力
+@property (nonatomic,strong) NSString * airFlowRate; //6 空气流量
+@property (nonatomic,strong) NSString * engineOil; //7 发动机剩余机油寿命
+@property (nonatomic,strong) NSString * averageFuelConsumption; //8 瞬时油耗 (L/H)
+@property (nonatomic,strong) NSString * curON; //9 瞬时油耗 (L/100km)
+@property (nonatomic,strong) NSString * hundredKilometresOil; //10 百公里燃油消耗
+@property (nonatomic,strong) NSString * engineSpeed; //11 发动机转速
+@property (nonatomic,strong) NSString * speed; //12 车速
+@property (nonatomic,strong) NSString * IAT;//13 发动机进气温度
+@property (nonatomic,strong) NSString * mi;//15 用油量
+@property (nonatomic,strong) NSString * percentageOfRemainingOil;//16 发动机剩余油量百分比
+@property (nonatomic,strong) NSString * totalMileage;//18 总里程
+@property (nonatomic,strong) NSString * automaticTransmissionGear;//19 自动波箱档位
+@property (nonatomic,strong) NSString * airConditioningSwitchState;//20 空调开关状态
+@property (nonatomic,strong) NSString * driverSeatBeltBuckledState;//21 驾驶员安全带扣上状态
+@property (nonatomic,strong) NSString * brakeLampSwitchState;//22 制动灯开关状态
+@property (nonatomic,strong) NSString * parkingBrakeState;//23 驻车制动状态
+@property (nonatomic,strong) NSString * ABSAlarmIndicatorLampStatus;//24 ABS告警指示灯状态
+@property (nonatomic,strong) NSString * engineIndicatorLampStatus;//25 发动机指示灯状态
+@property (nonatomic,strong) NSString * luggageCompartmentBoxSwitchState;//26 行李厢箱(后盖)开关状态
+@property (nonatomic,strong) NSString * rightRearDoorSwitchState;//27 右后门开关状态
+@property (nonatomic,strong) NSString * leftRearDoorSwitchState;//28 左后门开关状态
+@property (nonatomic,strong) NSString * rightFrontDoorSwitchState;//29 右前门开关状态
+@property (nonatomic,strong) NSString * leftFrontDoorSwitchState;//30 左前门开关状态
+@property (nonatomic,strong) NSString * rightSteeringLampSwitchState;//31 右转向灯开关状态
+@property (nonatomic,strong) NSString * leftSteeringLampSwitchState;//32 左转向灯开关状态
+@property (nonatomic,strong) NSString * widthLampSwitchState;//33 示宽灯(侧位灯)开关状态
+@property (nonatomic,strong) NSString * nearLampSwitchState;//34 近光灯开关状态
+@property (nonatomic,strong) NSString * highBeamLightSwitchState;//35 远光灯开关状态
+@property (nonatomic,strong) NSString * waterTemperature;//36 水温
+@property (nonatomic,strong) NSString * windscreenWiper;//37 雨刮
+@property (nonatomic,strong) NSString * brakState;//38 刹车
+@property (nonatomic,strong) NSString * fogLamp;//39 雾灯指示灯状态
+@property (nonatomic,strong) NSString * carLock;//40 全车上锁状态
+@property (nonatomic,strong) NSString * accelerateDown; //41 油门踏板踏下状态
+@property (nonatomic,strong) NSString * mileageID;//42 里程ID
+@property (nonatomic,strong) NSString * dangerousLampState;//43 危险灯状态
+@property (nonatomic,strong) NSString * voltag;//44 电压
+@property (nonatomic,strong) NSString * delayTime;//45 延时时间
+@property (nonatomic,strong) NSString * breakDownSRS;//46 SRS告警
+@property (nonatomic,strong) NSString * fuelgauge;//47 瞬时油量%
+@property (nonatomic,strong) NSString * apkVoltag;//APK电压
+
+@property (nonatomic,strong) NSString * currentTime;//默认的当前时间
+
++ (void)parseDFDataForCarMonitorControl:(GOMapCarMonitorControlData *)resultData serverDic:(NSDictionary *)dic;
+@end

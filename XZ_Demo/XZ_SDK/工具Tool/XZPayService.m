@@ -1,0 +1,177 @@
+
+#import "XZPayService.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "AFHTTPSessionManager.h"
+#import "AppDelegate.h"
+#import "XZUtility.h"
+
+
+//设置要回调的应用
+#define XZApp ((AppDelegate*)[[UIApplication sharedApplication] delegate])
+#pragma mark -
+
+@implementation XZPayService
+//@synthesize AFM___;
+
+//+ (id)allocWithZone:(struct _NSZone *)zone{
+//    static XZPayService *instance;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        instance = [super allocWithZone:zone];
+//    });
+//    return instance;
+//}
+//
+//+ (instancetype)sharePayEngine{
+//    return [[self alloc] init];
+//}
+//
+//- (instancetype)init {
+//    if (self = [super init]) {
+//        
+//    }
+//    return self;
+//}
+//
+//-(AFHTTPSessionManager *)AFM___{
+//    if (AFM___ == nil) {
+//        AFHTTPSessionManager *_ = [AFHTTPSessionManager manager];
+//        _.requestSerializer = [AFHTTPRequestSerializer serializer];
+//        _.responseSerializer = [AFHTTPResponseSerializer serializer];
+//        _.requestSerializer.timeoutInterval = 120;//网络超时 时间
+//        AFM___ = _;
+//    }
+//    return AFM___;
+//}
+//
+//#pragma mark  - ============================================ 支付宝支付
+//-(void)AliPay_Money:(NSString *)money sn:(NSString*)sn Dict:(NSDictionary *)AlpayRes PaySuc:(XZPaySuccessBlock)paySuc PayFail:(XZPayFailedBlock)payFail{
+//    _PaySucBlock = paySuc;
+//    _PayFailBlock = payFail;
+//    NSString *appScheme = AppScheme;
+//    NSString* orderInfo = [self getOrderInfoMoney:money sn:sn PayDic:AlpayRes];
+//    
+//    NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",orderInfo,[self doRsa:orderInfo rsaKey:[AlpayRes str:@"rsaKey"]], @"RSA"];
+//    [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+//        [[XZPayService sharePayEngine] Alipay__PayRes_AppDelegate_Noti:resultDic];
+//    }];
+//}
+//
+//-(void)Alipay__PayRes_AppDelegate_Noti:(NSDictionary*)resdic{
+//    if (resdic != nil) {
+//        if ([resdic[@"resultStatus"] integerValue] == 9000) {
+//            if (_PaySucBlock) {
+//                _PaySucBlock(@"支付成功");
+//            }
+//        }else{
+//            if (_PayFailBlock) {
+//                _PayFailBlock((int)[resdic[@"resultStatus"] integerValue],resdic[@"result"]);
+//                if ([resdic[@"resultStatus"] integerValue] != 6001) {//不是自己取消的都警告
+//                    [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"%@\n%@",@"支付失败",resdic[@"memo"]] delegate:nil cancelButtonTitle:@"确定"otherButtonTitles:nil] show];
+//                    [[[UIAlertView alloc] initWithTitle:@"提示" message:@"支付失败"delegate:nil cancelButtonTitle:@"确定"otherButtonTitles:nil] show];
+//                }
+//            }
+//        }
+//    }
+//}
+//
+////返回秩序信息
+//-(NSString*)getOrderInfoMoney:(NSString*)money sn:(NSString*)sn PayDic:(NSDictionary*)AlpayRes{
+//    Order *order = [[Order alloc] init];
+//    order.partner = PartnerID;
+//    order.seller = [AlpayRes str:@"seller"];//SellerID
+//    order.tradeNO = sn ? sn : [self generateTradeNO];
+//    order.productName = [AlpayRes str:@"name"];
+//    order.productDescription = [AlpayRes str:@"name"];
+//    //钱💰钱💰钱💰钱💰钱💰钱💰钱💰钱💰钱💰
+//    order.amount =[NSString stringWithFormat:@"%.2f",[money floatValue]];
+//    
+////#ifdef DEBUG
+////    order.amount = [NSString stringWithFormat:@"0.01"]; //测试时时 设置1分钱
+////#endif
+//    
+//    order.notifyURL = [AlpayRes str:@"callBackUrl"];
+//    order.service = @"mobile.securitypay.pay";
+//    order.paymentType = @"1";
+//    order.inputCharset = @"utf-8";
+//    order.itBPay = @"30m";
+//    order.showUrl = @"m.alipay.com";
+//    
+//    return [order description];
+//}
+//
+////加密方法
+//-(NSString*)doRsa:(NSString*)orderInfo rsaKey:(NSString*)rasKey {
+//    id<DataSigner> signer;
+//    signer = CreateRSADataSigner(rasKey);//商户私钥，自助生成 PartnerPrivKey
+//    NSString *signedString = [signer signString:orderInfo];
+//    return signedString;
+//}
+//
+//#pragma mark - 返回后台约定格式的充值订单号
+//- (NSString *)generateTradeNO{
+//    const int N = 15;
+//    NSString *sourceString = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//    NSMutableString *result = [[NSMutableString alloc] init] ;
+//    srand((int)time(0));
+//    for (int i = 0; i < N; i++) {
+//        unsigned index = rand() % [sourceString length];
+//        NSString *s = [sourceString substringWithRange:NSMakeRange(index, 1)];
+//        [result appendString:s];
+//    }
+//    return result;
+//}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//#pragma mark -  ============================================ 微信支付
+//
+////发起微信支付   dict 传服务器构建返回的
+//-(void)WeiXin__PayDict:(NSDictionary *)dict PaySuc:(XZPaySuccessBlock)paySuc PayFail:(XZPayFailedBlock)payFail{
+//    _PaySucBlock = paySuc;
+//    _PayFailBlock = payFail;
+//    //调起微信支付
+//    PayReq* req             = [[PayReq alloc] init];
+//    req.openID              = kWXAppID;
+//    req.partnerId           = dict[@"partnerid"];
+//    req.prepayId            = dict[@"prepayid"];;
+//    req.nonceStr            = dict[@"noncestr"];;
+//    req.timeStamp           = [[dict objectForKey:@"timestamp"] intValue];
+//    req.package             = @"Sign=WXPay";
+//    req.sign                = dict[@"sign"];;
+//    
+//    [WXApi sendReq:req];
+//}
+//
+////AppDelegate通知的 微信支付结果
+//-(void)WeiXin__PayRes_AppDelegate_Noti:(BaseResp*)resp{
+//    switch (resp.errCode) {
+//        case WXSuccess:
+//            if (_PaySucBlock) {
+//                _PaySucBlock(@"支付成功");
+//            }
+//            break;
+//        default:
+//            if (_PayFailBlock) {
+//                _PayFailBlock(resp.errCode,resp.errStr);
+//                if (resp.errCode != WXErrCodeUserCancel) {//不是自己取消的都警告
+//                    [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"%@\n%@",@"支付失败",resp.errStr] delegate:nil cancelButtonTitle:@"确定"otherButtonTitles:nil] show];
+//                }
+//            }
+//            break;
+//    }
+//}
+
+@end

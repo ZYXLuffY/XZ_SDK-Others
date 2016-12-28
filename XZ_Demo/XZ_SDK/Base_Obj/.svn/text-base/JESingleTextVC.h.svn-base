@@ -1,0 +1,40 @@
+//
+//  JESingleTextVC.h
+//  EVGO
+//
+//  Created by JE on 15/8/22.
+//  Copyright © 2015年 JE. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "JETextView.h"
+#import "JETextField.h"
+
+typedef void(^ResString)(NSString *Res);
+
+@interface JESingleTextVC : UIViewController
+@property (nonatomic,strong) ResString ResCall;
+
+@property (nonatomic,copy) NSString *VcTitle;
+@property (nonatomic,copy) NSString *DefaultText;
+@property (nonatomic,copy) NSString *PlaceText;
+@property (nonatomic,assign) NSUInteger limit;
+@property (nonatomic,assign) NSUInteger VHeight;
+
+@property (nonatomic,strong) JETextView *TextV_;
+@property (nonatomic,strong) JETextField *Tf_;
+@property (nonatomic,assign) BOOL UseTextField;
+
+
+/** Push一个编辑TextView */
++(instancetype)Vc:(UIViewController*)vc Title:(NSString*)title Text:(NSString*)text  Limit:(NSUInteger)limit Call:(ResString)call;
+/** Push一个编辑的TextView */
++(instancetype)Vc:(UIViewController*)vc Title:(NSString*)title Text:(NSString*)text placeHolder:(NSString*)place  Limit:(NSUInteger)limit TextH:(NSUInteger)textH Call:(ResString)call;
+/** Push一个编辑的 TextField */
++(instancetype)Vc:(UIViewController*)vc Title:(NSString*)title TfText:(NSString*)text placeHolder:(NSString*)place  Limit:(NSUInteger)limit Call:(ResString)call;
+
+@property (nonatomic,copy)   NSString *UseTableSex;/**< tableview 选性别 */
+/** Push一个选择性别的 */
++(instancetype)Vc:(UIViewController*)vc Title:(NSString*)title Sex:(NSString*)sex Call:(ResString)call;
+
+@end

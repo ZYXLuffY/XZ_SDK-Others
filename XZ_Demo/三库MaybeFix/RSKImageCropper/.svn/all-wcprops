@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 276
+/svn/bojue/!svn/ver/950/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper
+END
+RSKImageCropViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 305
+/svn/bojue/!svn/ver/950/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/RSKImageCropViewController.m
+END
+RSKImageScrollView.h
+K 25
+svn:wc:ra_dav:version-url
+V 297
+/svn/bojue/!svn/ver/505/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/RSKImageScrollView.h
+END
+RSKImageCropper.h
+K 25
+svn:wc:ra_dav:version-url
+V 294
+/svn/bojue/!svn/ver/505/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/RSKImageCropper.h
+END
+RSKTouchView.h
+K 25
+svn:wc:ra_dav:version-url
+V 291
+/svn/bojue/!svn/ver/505/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/RSKTouchView.h
+END
+UIImage+FixOrientation.h
+K 25
+svn:wc:ra_dav:version-url
+V 301
+/svn/bojue/!svn/ver/505/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/UIImage+FixOrientation.h
+END
+RSKImageScrollView.m
+K 25
+svn:wc:ra_dav:version-url
+V 297
+/svn/bojue/!svn/ver/505/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/RSKImageScrollView.m
+END
+RSKTouchView.m
+K 25
+svn:wc:ra_dav:version-url
+V 291
+/svn/bojue/!svn/ver/505/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/RSKTouchView.m
+END
+UIImage+FixOrientation.m
+K 25
+svn:wc:ra_dav:version-url
+V 301
+/svn/bojue/!svn/ver/505/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/UIImage+FixOrientation.m
+END
+RSKImageCropViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 305
+/svn/bojue/!svn/ver/505/10SourceCode/iOS/BoJueUser_JE/com.tmbj.qtzUser_JE/com.tmbj.qtzUser_JE/JE.SDK/iOS%E8%81%8A%E5%A4%A9%E7%9B%B8%E5%85%B3/%E8%BE%93%E5%85%A5%E6%A1%86/%E5%9B%BE%E7%89%87%E7%BC%96%E8%BE%91/%E5%9C%86%E5%BD%A2%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9/RSKImageCropper/RSKImageCropViewController.h
+END

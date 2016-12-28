@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  GOVehicleDiagnose
+
+  Created by zhengjinbo on 14/12/30.
+  Copyright (c) 2014年 zhengjinbo. All rights reserved.
+*/
+"GODiag_err_no_link_bluetooth" = "请开启手持设备的蓝牙并连接golo接头！";
+"GODiag_err_no_link_wifi" = "请开启手持设备的wifi并连接golo接头！";
+"GODiag_err_no_config" = "缺失车辆诊断文件！";
+"GODiag_err_no_class" = "缺失车辆诊断静态库！";
+"GODiag_err_check_file" = "接头通讯失败！请检查接头连接是否正常，接头是否正常工作。";
+"GODiag_err_check_password" = "接头验证失败！";
+"GODiag_err_diag_running" = "已有一个体检正在进行中";
+"GODiag_err_notGOLOWIFI" = "请连接golo接头的WIFI";
+"GODiag_err_diag_exception" = "体检过程中发生异常";
+
+"GOObdDtcSystemFuelAndAirInvestigation" = "燃油和空气侦查系统";
+"GOObdDtcSystemIgnition" = "点火系统";
+"GOObdDtcSystemEmission" = "废气控制系统";
+"GOObdDtcSystemIdlingSpeed" = "车速怠速控制系统";
+"GOObdDtcSystemComputer" = "电脑控制系统";
+"GOObdDtcSystemNetwork" = "网络连接故障";
+"GOObdDtcSystemOther" = "其他";
+"GOObdDtcSystemEngine" = "发动机系统";
+"GOObdDtcSystemTransmission" =  "变速箱系统";
+"GOObdDtcSystemABS" =  "ABS系统";
+"GOObdDtcSystemAirbag" =  "安全气囊系统";
+
+
+"GOConfig_err_no_dupsysini" = "没有dpusys.ini文件";
+"GOConfig_err_no_zipFile" = "没有压缩文件";
+"GOConfig_err_no_subzipFile" = "解压后没有发现子压缩文件";
+"GOConfig_err_subzipFile_error" = "子压缩文件名称不正确";
+"GOConfig_err_unzipfile_path_error" = "解压后文件路径格式不对";
+"GOConfig_err_no_eobd2_config_file" = "解压后没发现EOBD2配置库";
+"GOConfig_err_param_error" = "解压参数错误";

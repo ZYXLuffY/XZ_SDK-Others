@@ -1,0 +1,58 @@
+//
+//  JEListManager.h
+//
+//
+//  Created by JE on 15/6/13.
+//
+//
+
+#import <Foundation/Foundation.h>
+#import "AFNetworking.h"
+#import "MJExtension.h"
+#import "MJRefresh.h"
+#import "MBProgressHUD.h"
+
+@interface JEListManager : NSObject
+
+#define         BeginPage           (1)           //页数固定从1开始  （与当前后台设置的起始页数为准）
+#define         PageParam           @"pageNum"     //有页的概念时 请求后台页的字段固定
+#define         rowsParam           @"pageSize"     //有页的概念时 请求后台每页的字段固定
+#define         rowsNum             (10)          //有页的概念时 每页多少条
+
+@property(nonatomic,assign) NSInteger                     Page_;/**< 当前页数 */
+@property(nonatomic,weak)   NSMutableArray                *Arr_;/**< 数据源 可能搜索改变一下 */
+@property(nonatomic,strong)   NSDictionary                *Param_;/**< 接口字典参数 */
+
+
+
+//网络请求成功时
+typedef void (^NetSuccess)(NSDictionary *Res,NSInteger Page,UITableView *table);
+@property (nonatomic,copy) NetSuccess   NetSuccessdBlock;
+@property (nonatomic,copy) void (^BL_NetEnd)();
+
+//网络请求失败时
+typedef void (^NetFailure)();
+@property (nonatomic,copy) NetFailure   NetworkFailedBlock;
+
+/** 请求加请求参数 */
+- (void)addValue:(NSString*)value key:(NSString*)key;
+
+/**
+ *   Just Do it
+ */
++(void)API:(NSString*)API Dic:(NSDictionary*)Dic Pages:(BOOL)Hpage Tv:(UIView*)tableview Arr:(NSMutableArray*)dataSoure VC:(UIViewController*)SuperVc Af:(AFHTTPSessionManager*)manager Mod:(Class)modclass CaChe:(NSString*)caChe Suc:(NetSuccess)success Fail:(NetFailure)fail;
+
+/**
+ *  封装的多页面数据下载
+ */
+-(instancetype)initWithAPI:(NSString*)API Dic:(NSDictionary*)Dic Pages:(BOOL)Hpage Tv:(UIView*)tableview Arr:(NSMutableArray*)dataSoure VC:(UIViewController*)SuperVc  Af:(AFHTTPSessionManager*)manager Mod:(Class)modclass CaChe:(NSString*)caChe Suc:(NetSuccess)success Fail:(NetFailure)fail;
+
+/** 默认处理方法 */
+-(void)defaultAnalysisArrList:(NSArray*)arr;
+
+-(void)startNetworking;/**< 偷偷刷新了 */
+
+
+
+
+@end

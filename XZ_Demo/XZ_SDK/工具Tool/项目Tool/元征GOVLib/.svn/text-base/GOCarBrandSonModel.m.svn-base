@@ -1,0 +1,48 @@
+//
+//  GOCarBrandSonModel.m
+//  GODiagnoseDemo
+//
+//  Created by Launch Tech Co.,Ltd on 10/9/15.
+//  Copyright (c) 2015 allen. All rights reserved.
+//
+
+#import "GOCarBrandSonModel.h"
+
+@implementation GOCarBrandSonModel
+
+-(NSMutableArray *)subList{
+    
+    if (!_subList) {
+        
+        _subList = [[NSMutableArray alloc]init];
+    }
+    return _subList;
+}
+- (void)setValue:(id)value forKey:(NSString *)key
+{
+    
+    if ([value isKindOfClass:[NSNumber class]]) {
+        
+        value = [value stringValue];
+    }
+    if ([key isEqualToString:@"subList"]) {
+        
+        if (value) {
+            
+            for (NSDictionary *dic in value) {
+                
+                GOCarBrandSonModel *carBrandSonModel = [[GOCarBrandSonModel alloc]init];
+                [carBrandSonModel setValuesForKeysWithDictionary:dic];
+                [self.subList addObject:carBrandSonModel];
+            }
+            value = self.subList;
+        }else{
+  
+ //           value = @"2";
+        }
+        
+    }
+    [super setValue:value forKey:key];
+}
+
+@end

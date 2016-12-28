@@ -1,0 +1,13 @@
+//
+//  EVGOStoryboardSegue.h
+//  EVGO
+//
+//  Created by JE on 15/9/7.
+//  Copyright © 2015年 JE. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface JEStoryboardSegue : UIStoryboardSegue
+
+@end

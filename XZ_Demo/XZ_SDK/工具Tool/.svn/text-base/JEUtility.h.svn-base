@@ -1,0 +1,164 @@
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "JEData.h"
+#import "MBProgressHUD.h"
+#import "UIView+JE.h"
+#import "NSString+JE.h"
+#import "JEButton.h"
+#import "UIImage+JE.h"
+#import "UIColor+JE.h"
+#import "CALayer+JE.h"
+#import "NSDate+JE.h"
+#import "NSArray+JE.h"
+#import "NSObject+JE.h"
+#import "NSTimer+JE.h"
+#import "UIViewController+JE.h"
+#import "UIControl+BlocksKit.h"
+#import "UIButton+JE.h"
+#import "UILabel+JE.h"
+#import "UIScrollView+JE.h"
+#import "UITableViewCell+JE.h"
+#import "UIImageView+JE.h"
+#import "BoJueSetting.h"
+#import "BoJueNetworkAPI.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
+#import "QTZ_AddConectPhoneNumView.h"
+
+
+#ifdef DEBUG
+//#define NSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define NSLog(fmt, ...) NSLog((@"" fmt), ##__VA_ARGS__)
+#else
+#define NSLog(...)
+#endif
+
+#define QTZ_MD5Key @"f4cc399f0effd13c888e310ea2cf5399"
+#define QTZ_MD5Method @"!@#$%^&*"
+
+#define JEApp ((AppDelegate*)[[UIApplication sharedApplication] delegate])
+#define USDF     [NSUserDefaults standardUserDefaults]
+#define iOS7       ([[[UIDevice currentDevice]systemVersion]floatValue] >= 7.0)
+#define iOS8       ([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0)
+#define iOS9       ([[[UIDevice currentDevice]systemVersion]floatValue] >= 9.0)
+#define iOS10      ([[[UIDevice currentDevice]systemVersion]floatValue] >= 10.0)
+#define LoweriOS8  ([[[UIDevice currentDevice]systemVersion]floatValue] < 8.0)
+#define ScreenHeight               [UIScreen mainScreen].bounds.size.height
+#define ScreenWidth                [UIScreen mainScreen].bounds.size.width
+
+#define iPhone4_Screen             (ScreenHeight == 480)//320×480
+#define iPhone5_Screen             (ScreenHeight == 568)//320×568 0.5633
+#define iPhone6_Screen             (ScreenWidth == 375)//375×667 0.5622
+#define iPhone6Plus_Screen         (ScreenWidth == 414)//414x736  0.5625
+#define iPhone6_PBigger            (ScreenWidth >= 375)
+// iPhone5       320x568，640x1136， @2x
+// iPhone6       375x667，750x1334， @2x
+// iPhone6 Plus  414x736，1242x2208，@3x
+//#if TARGET_IPHONE_SIMULATOR
+//#endif
+
+#define Block_Exec(block, ...)    if (block) { block(__VA_ARGS__);};
+#define If_Exec(condition, ...)   if (condition) { __VA_ARGS__;};
+#define If_Return(condition, ...)   if (condition) { __VA_ARGS__;return;};
+
+
+#define JIE1           NSLog(@"💙Debug%s-%d- ",  __func__, __LINE__);
+#define JIE2(x,y)      NSLog(@"💙Debug-%s\n %d \n%d \n%@\n",  __func__, __LINE__,(x),(y));
+
+#define font(X) ([UIFont systemFontOfSize:X])
+#define fontL(X) ([UIFont systemFontOfSize:X weight:UIFontWeightLight])
+#define fontM(X) ([UIFont systemFontOfSize:X weight:UIFontWeightMedium])
+#define fontB(X) ([UIFont systemFontOfSize:X weight:UIFontWeightBold])
+
+#define SB1(VcIdentifier) ([[UIStoryboard storyboardWithName:@"BoJue_1" bundle:nil] instantiateViewControllerWithIdentifier:(VcIdentifier)])
+#define SB2(VcIdentifier) ([[UIStoryboard storyboardWithName:@"BoJue_2" bundle:nil] instantiateViewControllerWithIdentifier:(VcIdentifier)])
+#define SB3(VcIdentifier) ([[UIStoryboard storyboardWithName:@"BoJue_3" bundle:nil] instantiateViewControllerWithIdentifier:(VcIdentifier)])
+#define SB_VC(storyboardName,VcIdentifier) ([[UIStoryboard storyboardWithName:(storyboardName) bundle:nil] instantiateViewControllerWithIdentifier:(VcIdentifier)])
+
+#define SFM(x)      ([NSString stringWithFormat:@"%@",(x)])
+
+
+#define LOADIMAGE(file) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:(file) ofType:@"png"]]
+
+#define kCacheFile(fileName)  [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:(fileName)]
+#define kDocumentFile(fileName)  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:(fileName)]
+
+
+#define WSELF               __weak typeof(self) wself = self;
+#define SSELF               __strong __typeof(wself)strongSelf = wself;
+#define ISSTR(v) [[v class] isSubclassOfClass:[NSString class]]        //判断当前对象是否一个str对象
+#define ISVaildStr(v) v && ISSTR(v) && [v length]>0 && ![v isEqualToString:@"<null>"]    //判断是否是一个合法的字符串
+#define VALUEFROM(v) ISVaildStr(v)?v:@""     //如果字符串不合法的是否就返回一个长度为0的字符串
+
+
+@interface JEUtility : NSObject
+
+
+/** 代码执行时间  0为10000次 */
+void Code_RunTime (int times,void(^block)(void));
+/** 延迟执行 */
+void delay (float time,void (^block)(void));
+
+/** 显示警告框  该方法显示 不会显示多个 */
++ (void)showAlertViewTitle:(NSString *)title Msg:(NSString *)message;
+
+/** 显示警告框 内部回调 */
++ (void)showAlertViewTitle:(NSString *)title Msg:(NSString *)message completion:(void(^)(int index))completionBlock  otherBtns:(NSArray *)otherbtns;
+
+/** 高德采用GCJ-02, 百度map sdk 采用的是BD-09 */
++ (CLLocationCoordinate2D)Convert_BD09_To_GCJ02:(CLLocationCoordinate2D)coor;
+/**< 根据参数拼接URL*/
++ (NSString *)URLWithBaseString:(NSString *)baseString parameters:(NSDictionary *)parameters;
+
+
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark - JEHandleCommon  AlertView
+
+@interface JEHandleCommon : NSObject
++(instancetype)share;
+typedef void(^indexBtnClickBlock)(int index);
+@property (nonatomic,copy) indexBtnClickBlock indexblock;
+
+@property (nonatomic,assign) BOOL isShowAlterView;
+@property(nonatomic,strong)UIAlertView *  alertJE;
+
+/** 显示警告框 内部回调 */
+- (void)showAlertView:(NSString *)title Msg:(NSString *)message cancleBtn:(NSString *)cancletitle otherBtn:(NSArray*)arr completionBlock:(indexBtnClickBlock)completionBlock;
+- (void)HideAlertView;/**< 隐藏AlertView */
+
+#pragma mark - 图片相关
+typedef void(^B_PickImg)(UIImage *FixedImg,UIImagePickerController *picker);
+@property (nonatomic,copy) B_PickImg B_PickimgBlock;
+@property (nonatomic,assign) BOOL RoundImg;/**< 剪裁圆形图片 */
+@property (nonatomic,assign) BOOL allowsEdit;/**< 可编辑否 */
+
+/** 搞张图片 默认 @"拍照",@"从相册中选择" 返回修改过大小的图片 title 标题而已 vc    self 是否圆形选择图片？ */
++(void)CameraPick_Img:(NSString*)title RoundImg:(BOOL)round pick:(B_PickImg)block;
+
+/** 搞张图片 直接使用相机或相册 */
++(void)CameraPickImg_Type:(UIImagePickerControllerSourceType)type RoundImg:(BOOL)round edit:(BOOL)edit pick:(B_PickImg)block;
+
+/** 搞张图片 @"拍照",@"从相册中选择" 返回原图 title 标题而已 */
++(void)CameraPick_Img:(NSString*)title edited:(BOOL)edited pick:(B_PickImg)block;
+
+/**< 能否使用相机 不能用就alertview提示下 */
++(BOOL)CanUseCamera;
+
+
+@end
+
+
+

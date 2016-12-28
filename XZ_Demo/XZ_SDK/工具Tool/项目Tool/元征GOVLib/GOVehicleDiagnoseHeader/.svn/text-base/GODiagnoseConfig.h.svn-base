@@ -1,0 +1,47 @@
+//
+//  GODiagnoseConfig.h
+//  GOVehicleDiagnose
+//
+//  Created by zhengjinbo on 15/1/4.
+//  Copyright (c) 2015年 zhengjinbo. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "GODiagnoseCommon.h"
+
+@protocol GODiagnoseConfigDelegate <NSObject>
+@optional
+- (void) GODiagConfigUnzipOnComplete;
+- (void) GODiagConfigUnzipOnProgress:(NSNumber *)progress;
+- (void) GODiagConfigUnzipError:(NSError *)error;
+@end
+
+@interface GODiagnoseConfig : NSObject
+@property (nonatomic,assign) id<GODiagnoseConfigDelegate>delegate;
+
+/**
+ *  解压参数指定的文件，并记录必须要的信息用于体检
+ *
+ *  @param 具体描述见GODiagnoseCommon.h
+ */
+- (void)unzip:(NSDictionary *)param;
+
+/**
+ *  解压单个诊断软件包
+ *
+ *  @param zipFileName       需要解压的软件包名
+ *  @param zipFilePath       需要解压的压缩包存放路径
+ *  @param sysINIFilePath    sysINI文件
+ *  @param snKey             序列号
+ *  @param success           解压成功，返回体检所需文件的路径
+ *  @param failure           解压失败，返回错误
+ */
+- (void)unZipSingleFiles:(NSString *)zipFileName
+             zipFilePath:(NSString *)zipFilePath
+          sysINIFilePath:(NSString *)sysINIFilePath
+                   snKey:(NSString *)snKey
+                 success:(void(^)(NSString *filePath))success
+                 failure:(void (^)(NSError *error))failure;
+@end
+
+

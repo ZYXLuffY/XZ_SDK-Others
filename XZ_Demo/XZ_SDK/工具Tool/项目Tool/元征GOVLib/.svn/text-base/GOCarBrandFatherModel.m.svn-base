@@ -1,0 +1,55 @@
+//
+//  GOCarBrandFatherModel.m
+//  GODiagnoseDemo
+//
+//  Created by Launch Tech Co.,Ltd on 10/9/15.
+//  Copyright (c) 2015 allen. All rights reserved.
+//
+
+#import "GOCarBrandFatherModel.h"
+#import "GOCarBrandSonModel.h"
+@implementation GOCarBrandFatherModel
+
+-(NSMutableArray *)subList{
+
+    if (!_subList) {
+        
+        _subList = [[NSMutableArray alloc]init];
+    }
+    return _subList;
+}
+- (void)setValue:(id)value forKey:(NSString *)key
+{
+    
+    if ([value isKindOfClass:[NSNumber class]]) {
+        
+        value = [value stringValue];
+    }
+    if ([key isEqualToString:@"subList"]) {
+        
+        if (value) {
+            
+            for (NSDictionary *dic in value) {
+                
+                GOCarBrandSonModel *carBrandSonModel = [[GOCarBrandSonModel alloc]init];
+                [carBrandSonModel setValuesForKeysWithDictionary:dic];
+                [self.subList addObject:carBrandSonModel];
+            }
+            value = self.subList;
+        }else{
+        
+  //          value = @"1";
+        }
+
+    }
+    [super setValue:value forKey:key];
+    
+}
+// 后台多加字段调用方法
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+
+    NSLog(@"%@类没有定义%@属性",NSStringFromClass([self class]),key);
+}
+
+@end

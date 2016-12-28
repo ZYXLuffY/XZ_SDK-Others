@@ -1,0 +1,368 @@
+//
+//  GOMapCarMonitorControlData.m
+//  GODiagnoseDemo
+//
+//  Created by Launch Tech Co.,Ltd on 4/8/15.
+//  Copyright (c) 2015 allen. All rights reserved.
+//
+
+#import "GOMapCarMonitorControlData.h"
+
+@implementation GOMapCarMonitorControlData
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
+
+- (NSString*)description
+{
+    NSMutableString* formatString = [NSMutableString string];
+    [formatString appendFormat:@"里程:%@\n", self.continueMileage];
+    [formatString appendFormat:@"累计里程:%@\n", self.addUpMileage];
+    [formatString appendFormat:@"发动机剩余燃油:%@\n", self.remainOil];
+    [formatString appendFormat:@"油门踏板相对位置:%@\n", self.accelerate];
+    [formatString appendFormat:@"进气歧管绝对压力:%@\n", self.inductionManifold];
+    [formatString appendFormat:@"空气流量:%@\n", self.airFlowRate];
+    [formatString appendFormat:@"发动机剩余机油寿命:%@\n", self.engineOil];
+    [formatString appendFormat:@"瞬时油耗(L/H):%@\n", self.averageFuelConsumption];
+    [formatString appendFormat:@"瞬时油耗(L/100km):%@\n", self.curON];
+    [formatString appendFormat:@"百公里燃油消耗:%@\n", self.hundredKilometresOil];
+    [formatString appendFormat:@"发动机转速:%@\n", self.engineSpeed];
+    [formatString appendFormat:@"车速:%@\n", self.speed]; //
+    [formatString appendFormat:@"发动机进气温度:%@\n", self.IAT];
+    [formatString appendFormat:@"用油量:%@\n", self.mi];
+    [formatString appendFormat:@"发动机剩余油量百分比:%@\n", self.percentageOfRemainingOil];
+    [formatString appendFormat:@"总里程:%@\n", self.totalMileage];
+    [formatString appendFormat:@"自动波箱档位:%@\n", self.automaticTransmissionGear];
+    [formatString appendFormat:@"空调开关状态:%@\n", self.airConditioningSwitchState];
+    [formatString appendFormat:@"驾驶员安全带扣上状态:%@\n", self.driverSeatBeltBuckledState];
+    [formatString appendFormat:@"制动灯开关状态:%@\n", self.brakeLampSwitchState];
+    [formatString appendFormat:@"驻车制动状态:%@\n", self.parkingBrakeState];
+    [formatString appendFormat:@"ABS告警指示灯状态:%@\n", self.ABSAlarmIndicatorLampStatus];
+    [formatString appendFormat:@"发动机指示灯状态:%@\n", self.engineIndicatorLampStatus];
+    [formatString appendFormat:@"行李厢箱(后盖)开关状态:%@\n", self.luggageCompartmentBoxSwitchState];
+    [formatString appendFormat:@"rightRearDoorSwitchState:%@\n", self.rightRearDoorSwitchState];
+    [formatString appendFormat:@"leftRearDoorSwitchState:%@\n", self.leftRearDoorSwitchState];
+    [formatString appendFormat:@"rightFrontDoorSwitchState:%@\n", self.rightFrontDoorSwitchState];
+    [formatString appendFormat:@"leftFrontDoorSwitchState:%@\n", self.leftFrontDoorSwitchState];
+    [formatString appendFormat:@"右转向灯开关状态:%@\n", self.rightSteeringLampSwitchState];
+    [formatString appendFormat:@"左转向灯开关状态:%@\n", self.leftSteeringLampSwitchState];
+    [formatString appendFormat:@"示宽灯(侧位灯)开关状态:%@\n", self.widthLampSwitchState];
+    [formatString appendFormat:@"近光灯开关状态:%@\n", self.nearLampSwitchState];
+    [formatString appendFormat:@"远光灯开关状态:%@\n", self.highBeamLightSwitchState];
+    [formatString appendFormat:@"水温:%@\n", self.waterTemperature];
+    [formatString appendFormat:@"雨刮:%@\n", self.windscreenWiper];
+    [formatString appendFormat:@"刹车:%@\n", self.brakState];
+    [formatString appendFormat:@"雾灯指示灯状态:%@\n", self.fogLamp];
+    [formatString appendFormat:@"全车上锁状态:%@\n", self.carLock];
+    [formatString appendFormat:@"油门踏板踏下状态:%@\n", self.accelerateDown];
+    [formatString appendFormat:@"危险灯状态:%@\n", self.dangerousLampState];
+    [formatString appendFormat:@"里程ID:%@\n", self.mileageID];
+
+    return formatString;
+}
+
++ (void)parseDFDataForCarMonitorControl:(GOMapCarMonitorControlData*)resultData serverDic:(NSDictionary*)dic
+{
+    NSString* dataID = [NSString stringWithFormat:@"%@", [dic objectForKey:@"id"]];
+    
+    NSString* value = [NSString stringWithFormat:@"%@", [dic objectForKey:@"value"]];
+    
+    NSString *unitS = [NSString stringWithFormat:@"%@", [dic objectForKey:@"unit_name"]];
+    
+    if (unitS && unitS.length)
+    {
+        value = [NSString stringWithFormat:@"%@:%@",value,unitS];
+    }
+    NSString* tempValue = [NSString stringWithFormat:@"%@", [dic objectForKey:@"value"]];
+    
+    if ([self checkStringInvalid:tempValue]) {
+        value = @"";
+    }
+
+    //1 里程 00000511
+    if ([@"00000511" isEqualToString:dataID]) {
+        resultData.continueMileage = value;
+        return;
+    }
+
+    //2 累计里程
+    if ([@"0000051A" isEqualToString:dataID]) {
+        resultData.addUpMileage = value;
+        return;
+    }
+
+    //3 发动机剩余燃油量
+    if ([@"0000040C" isEqualToString:dataID]) {
+        resultData.remainOil = value;
+        return;
+    }
+
+    //4 油门踏板相对位置
+    if ([@"00000515" isEqualToString:dataID]) {
+        resultData.accelerate = value;
+        return;
+    }
+
+    //5 进气歧管绝对压力
+    if ([@"0000041F" isEqualToString:dataID]) {
+        resultData.inductionManifold = value;
+        return;
+    }
+
+    //6 空气流量
+    if ([@"0000041E" isEqualToString:dataID]) {
+        resultData.airFlowRate = value;
+        return;
+    }
+
+    //7 发动机剩余机油寿命
+    if ([@"00000404" isEqualToString:dataID]) {
+        resultData.engineOil = value;
+        return;
+    }
+
+    //8 瞬时油耗 (L/H)
+    if ([@"00000513" isEqualToString:dataID]) {
+        resultData.averageFuelConsumption = value;
+        return;
+    }
+
+    //9 瞬时油耗 (L/100km)
+    if ([@"00000514" isEqualToString:dataID]) {
+        resultData.curON = value;
+        return;
+    }
+
+    //10 百公里燃油消耗
+    if ([@"0000040F" isEqualToString:dataID]) {
+        resultData.hundredKilometresOil = value;
+        return;
+    }
+
+    //11 发动机转速
+    if ([@"00000300" isEqualToString:dataID]) {
+        resultData.engineSpeed = value;
+        return;
+    }
+
+    //12 车速
+    if ([@"0000030B" isEqualToString:dataID]) {
+        resultData.speed = value;
+        return;
+    }
+
+    //13 发动机进气温度
+    if ([@"00000303" isEqualToString:dataID]) {
+        resultData.IAT = value;
+        return;
+    }
+
+    //15 用油量
+    if ([@"00000512" isEqualToString:dataID]) {
+        resultData.mi = value;
+        return;
+    }
+
+    //16 发动机剩余油量百分比
+    if ([@"0000040D" isEqualToString:dataID]) {
+        resultData.percentageOfRemainingOil = value;
+        return;
+    }
+
+    //18 总里程
+    if ([@"00000290" isEqualToString:dataID]) {
+        resultData.totalMileage = value;
+        return;
+    }
+
+    //19 自动波箱档位
+    if ([@"00000281" isEqualToString:dataID]) {
+        resultData.automaticTransmissionGear = value;
+        return;
+    }
+
+    //20 空调开关状态
+    if ([@"00000370" isEqualToString:dataID]) {
+        resultData.airConditioningSwitchState = value;
+        return;
+    }
+
+    //21 驾驶员安全带扣上状态
+    if ([@"000002C0" isEqualToString:dataID]) {
+        resultData.driverSeatBeltBuckledState = value;
+        return;
+    }
+
+    //22 制动灯开关状态
+    if ([@"00000015" isEqualToString:dataID]) {
+        resultData.brakeLampSwitchState = value;
+        return;
+    }
+
+    //23 驻车制动状态
+    if ([@"00000360" isEqualToString:dataID]) {
+        resultData.parkingBrakeState = value;
+        return;
+    }
+
+    //24 ABS告警指示灯状态
+    if ([@"00000295" isEqualToString:dataID]) {
+        resultData.ABSAlarmIndicatorLampStatus = value;
+        return;
+    }
+
+    //25 发动机指示灯状态
+    if ([@"000002A1" isEqualToString:dataID]) {
+        resultData.engineIndicatorLampStatus = value;
+        return;
+    }
+
+    //26 行李厢箱(后盖)开关状态
+    if ([@"000001E0" isEqualToString:dataID]) {
+        resultData.luggageCompartmentBoxSwitchState = value;
+        return;
+    }
+
+    //27 右后门开关状态
+    if ([@"00000198" isEqualToString:dataID]) {
+        resultData.rightRearDoorSwitchState = value;
+        return;
+    }
+
+    //28 左后门开关状态
+    if ([@"00000190" isEqualToString:dataID]) {
+        resultData.leftRearDoorSwitchState = value;
+        return;
+    }
+
+    //29 右前门开关状态
+    if ([@"00000188" isEqualToString:dataID]) {
+        resultData.rightFrontDoorSwitchState = value;
+        return;
+    }
+
+    //30 左前门开关状态
+    if ([@"00000180" isEqualToString:dataID]) {
+        resultData.leftFrontDoorSwitchState = value;
+        return;
+    }
+
+    //31 右转向灯开关状态
+    if ([@"0000050A" isEqualToString:dataID]) {
+        resultData.rightSteeringLampSwitchState = value;
+        return;
+    }
+
+    //32 左转向灯开关状态
+    if ([@"00000509" isEqualToString:dataID]) {
+        resultData.leftSteeringLampSwitchState = value;
+        return;
+    }
+
+    //33 示宽灯(侧位灯)开关状态
+    if ([@"00000008" isEqualToString:dataID]) {
+        resultData.widthLampSwitchState = value;
+        return;
+    }
+
+    //34 近光灯开关状态
+    if ([@"00000002" isEqualToString:dataID]) {
+        resultData.nearLampSwitchState = value;
+        return;
+    }
+
+    //35 远光灯开关状态
+    if ([@"00000001" isEqualToString:dataID]) {
+        resultData.highBeamLightSwitchState = value;
+        return;
+    }
+
+    //36 水温
+    if ([@"00000305" isEqualToString:dataID]) {
+        resultData.waterTemperature = value;
+        return;
+    }
+
+    //37 雨刮
+    if ([@"00000510" isEqualToString:dataID]) {
+        resultData.windscreenWiper = value;
+        return;
+    }
+    //38 刹车
+    if ([@"0000029E" isEqualToString:dataID]) {
+        resultData.brakState = value;
+        return;
+    }
+
+    //39 雾灯
+    if ([@"000002A5" isEqualToString:dataID]) {
+        resultData.fogLamp = value;
+        return;
+    }
+
+    //40 全车上锁
+    if ([@"0000050C" isEqualToString:dataID]) {
+        resultData.carLock = value;
+        return;
+    }
+
+    //41 油门踏板踏下状态
+    if ([@"00000516" isEqualToString:dataID]) {
+        resultData.accelerateDown = value;
+        return;
+    }
+
+    //42 里程ID
+    if ([@"0000051B" isEqualToString:dataID]) {
+        resultData.mileageID = value;
+        //只有里程ID的字典中带有延时数据
+        resultData.delayTime = [dic objectForKey:@"delay_time"];
+        return;
+    }
+
+    //43 危险灯
+    if ([@"0000050B" isEqualToString:dataID]) {
+        resultData.dangerousLampState = value;
+        return;
+    }
+
+    //44 电压
+    if ([@"000001F0" isEqualToString:dataID]) {
+        resultData.voltag = value;
+        return;
+    }
+
+    //APK电压
+    if ([@"00000AF0" isEqualToString:dataID]) {
+        resultData.apkVoltag = value;
+        return;
+    }
+
+    //46 SRS
+    if ([@"0000029D" isEqualToString:dataID]) {
+        resultData.breakDownSRS = value;
+        return;
+    }
+
+    //47 瞬时油量%
+    if ([@"00000518" isEqualToString:dataID]) {
+        resultData.fuelgauge = value;
+        return;
+    }
+}
+
++ (BOOL)checkStringInvalid:(NSString*)param
+{
+    if ((!param) || ([param isEqual:[NSNull null]]) || ([param isKindOfClass:[NSString class]] == NO) || (0 == param.length) || ([param isEqualToString:@"<null>"]) || ([param isEqualToString:@"(null)"])) {
+        return YES;
+    }
+
+    return NO;
+}
+
+@end

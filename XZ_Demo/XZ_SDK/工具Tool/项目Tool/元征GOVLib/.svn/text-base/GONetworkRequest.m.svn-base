@@ -1,0 +1,16 @@
+//
+//  GONetworkRequest.m
+//  GODiagnoseDemo
+//
+//  Created by Launch Tech Co.,Ltd on 9/30/15.
+//  Copyright (c) 2015 allen. All rights reserved.
+//
+
+#import "GONetworkRequest.h"
+#import "Config.h"
+#import "AFNetworking.h"
+#import "GOCarBrandFatherModel.h"
+@implementation GONetworkRequest
+
+
+@end

@@ -1,0 +1,38 @@
+//
+//  XZBaseScrIndexView.h
+//  BoJueCar.BoJueBusiness_XZ
+//
+//  Created by XZ on 16/4/6.
+//  Copyright © 2016年 XZ. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "XZBaseVC.h"
+
+@interface XZBaseScrIndexView : XZBaseVC
+
+@property(nonatomic,strong) UIView *Ve_BotBoardLine;/**< 滑块线条 */
+@property (nonatomic,assign) CGFloat SliderBoardPer;/**< 小滑块的百分比长 */
+@property (nonatomic,assign) CGFloat btnWidth;/**< 按钮宽 默认 平分 */
+
+@property(nonatomic,strong) UIColor *baseTintColore;/**< 字体 滑块 颜色 */
+
+@property(nonatomic,strong) NSMutableArray *Arr_TVs;/**< 自定义view */
+@property(nonatomic,strong) UIScrollView *Scr_scroll_;/**< 下面个的容器 */
+
+@property(nonatomic,assign) BOOL showScrollToTopButton;/**< 显示 滑到顶上按钮 默认 NO*/
+
+/** 修改文字 */
+- (void)changeTitleAt:(NSInteger)index title:(NSString*)title;
+
+/** 滑到指定位置 0 1 2 3 4 */
+- (void)SliderToIndex:(NSInteger)index reload:(BOOL)reload;
+
+-(void)loadTitles:(NSArray*)titles TableViews:(NSArray*)tableViews;/**< 标题 和 自定义view */
+-(void)loadTitles:(NSArray*)titles VCs:(NSArray*)VCs key:(NSString*)key;/**< 标题 和 自定义VC vc中view的key [VC valueForKey:key]*/
+
+/** loadTitles..不传view 的 重写改方法 懒加载控件 */
+- (UITableView*)XZLazyTableViewsAtIndex:(NSInteger)index;
+
+    
+@end

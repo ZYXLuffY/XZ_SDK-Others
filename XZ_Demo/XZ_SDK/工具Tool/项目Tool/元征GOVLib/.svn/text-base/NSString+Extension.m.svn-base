@@ -1,0 +1,74 @@
+//
+//  NSString+Extension.m
+//  GODiagnoseDemo
+//
+//  Created by Launch Tech Co.,Ltd on 9/30/15.
+//  Copyright (c) 2015 allen. All rights reserved.
+//
+
+#import "NSString+Extension.h"
+#import <CommonCrypto/CommonDigest.h>
+@implementation NSString (Extension)
+
++ (id)checkNull:(id)source{
+
+    if (!source) {
+        
+        return @"";
+    }
+    if ([source isKindOfClass:[NSNumber class]]) {
+        
+        return [(NSNumber *)source stringValue];
+    }
+    if ([source isKindOfClass:[NSString class]]) {
+        
+        if ([source isEqualToString:@"<null>"] ||
+            [source isEqualToString:@"[null]"] ||
+            [source isEqualToString:@"(null)"]) {
+            
+            return @"";
+        }else{
+        
+            return source;
+        }
+    }else{
+    
+        return @"";
+    }
+    
+}
++ (NSString *)md5:(NSString *)str
+{
+    const char *original_str = [str UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(original_str, (CC_LONG)strlen(original_str), result);
+    
+    NSMutableString *hash = [NSMutableString string];
+    for (int i = 0; i < 16; i++)
+        [hash appendFormat:@"%02X", result[i]];
+    
+    return [hash lowercaseString];
+}
+- (NSString *)md5
+{
+    const char *original_str = [self UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(original_str, (CC_LONG)strlen(original_str), result);
+    
+    NSMutableString *hash = [NSMutableString string];
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [hash appendFormat:@"%02X", result[i]];
+    
+    return [hash lowercaseString];
+}
+- (NSString *)signWithParamsForiDiag:(NSDictionary *)params
+{
+    NSMutableString *s = [NSMutableString string];
+    for (id k in [[params allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)])
+    {
+        [s appendString:params[k]];
+    }
+    
+    return [s md5];
+}
+@end
